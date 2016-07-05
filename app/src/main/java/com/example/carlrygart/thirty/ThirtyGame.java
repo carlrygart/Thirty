@@ -43,26 +43,29 @@ public class ThirtyGame {
     }
 
     public void calculateScore(String spinnerValue) {
-        LinkedList<Dice> dicesLeft = new LinkedList<Dice>(Arrays.asList(dices));
+        LinkedList<Dice> dicesLeft = new LinkedList<>(Arrays.asList(dices));
         int tempScore = 0;
         int chosenValue = 3;
-        if (spinnerValue != "Low") chosenValue = Integer.parseInt(spinnerValue);
+        if (spinnerValue.equals("Low")) chosenValue = Integer.parseInt(spinnerValue);
         //Log.d("value", String.valueOf(value));
 
         while (!dicesLeft.isEmpty()) {
             Dice dice = dicesLeft.poll();
             if (dice.getValue() == chosenValue) {
                 tempScore += chosenValue;
-                break;
+                Log.d("First loop", String.valueOf(chosenValue));
+                // ev continue?
             }
 
             for (Dice dice2: dicesLeft) {
                 if (dice.getValue() + dice2.getValue() == chosenValue) {
                     tempScore += chosenValue;
                     dicesLeft.remove(dice2);
+                    Log.d("Second loop", String.valueOf(chosenValue));
                     break;
                 }
             }
+            // ev continue?
         }
         //Log.d("tempScore", String.valueOf(tempScore));
         player.addToScore(spinnerValue, tempScore);

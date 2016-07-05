@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Thirty</string>
     <string name="throw_button">Throw</string>
-    <string name="title_activity_test">Test</string>
     <string name="player_heading">Player:</string>
     <string name="player_text">NULL</string>
     <string name="score_heading">Score:</string>
