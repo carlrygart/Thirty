@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Thirty</string>
+    <string name="throw_button">Throw</string>
+    <string name="title_activity_test">Test</string>
+    <string name="player_heading">Player:</string>
+    <string name="player_text">NULL</string>
+    <string name="score_heading">Score:</string>
+    <string name="player_score">0</string>
+    <string name="throws_heading">Throws:</string>
+    <string name="player_throws">0</string>
+    <string name="select_button">Select</string>
+
+    <string-array name="number_list">
+        <item>Low</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+</resources>
