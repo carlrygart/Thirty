@@ -42,33 +42,52 @@ public class ThirtyGame {
         return dices[dieNbr].getSavedStatus();
     }
 
-    public void calculateScore(String spinnerValue) {
-        LinkedList<Dice> dicesLeft = new LinkedList<>(Arrays.asList(dices));
-        int tempScore = 0;
+    public boolean calculateScore(String spinnerValue) {
         int chosenValue = 3;
-        if (spinnerValue.equals("Low")) chosenValue = Integer.parseInt(spinnerValue);
-        //Log.d("value", String.valueOf(value));
-
-        while (!dicesLeft.isEmpty()) {
-            Dice dice = dicesLeft.poll();
-            if (dice.getValue() == chosenValue) {
-                tempScore += chosenValue;
-                Log.d("First loop", String.valueOf(chosenValue));
-                // ev continue?
-            }
-
-            for (Dice dice2: dicesLeft) {
-                if (dice.getValue() + dice2.getValue() == chosenValue) {
-                    tempScore += chosenValue;
-                    dicesLeft.remove(dice2);
-                    Log.d("Second loop", String.valueOf(chosenValue));
-                    break;
+        if (!spinnerValue.equals("Low")) chosenValue = Integer.parseInt(spinnerValue);
+        int tempScore = 0;
+        for (Dice d: dices) {
+            if (!d.getSavedStatus()) continue;
+            int dval = d.getValue();
+            if (chosenValue == 3) {
+                if (dval == 1 || dval == 2 || dval == 3) {
+                    tempScore += dval;
+                } else {
+                    return false;
                 }
+            } else {
+                tempScore += dval;
             }
-            // ev continue?
         }
+        if (chosenValue != 3 && tempScore%chosenValue != 0) return false;
+
+            // Other solution... TBC
+//        LinkedList<Dice> dicesLeft = new LinkedList<>(Arrays.asList(dices));
+//        int chosenValue = 3;
+//        if (spinnerValue.equals("Low")) chosenValue = Integer.parseInt(spinnerValue);
+//        //Log.d("value", String.valueOf(value));
+//
+//        while (!dicesLeft.isEmpty()) {
+//            Dice dice = dicesLeft.poll();
+//            if (dice.getValue() == chosenValue) {
+//                tempScore += chosenValue;
+//                Log.d("First loop", String.valueOf(chosenValue));
+//                // ev continue?
+//            }
+//
+//            for (Dice dice2: dicesLeft) {
+//                if (dice.getValue() + dice2.getValue() == chosenValue) {
+//                    tempScore += chosenValue;
+//                    dicesLeft.remove(dice2);
+//                    Log.d("Second loop", String.valueOf(chosenValue));
+//                    break;
+//                }
+//            }
+//            // ev continue?
+//        }
         //Log.d("tempScore", String.valueOf(tempScore));
         player.addToScore(spinnerValue, tempScore);
+        return true;
     }
 
     public void resetDices() {

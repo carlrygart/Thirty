@@ -1,5 +1,6 @@
 package com.example.carlrygart.thirty;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ThirtyActivity extends AppCompatActivity {
@@ -23,6 +26,8 @@ public class ThirtyActivity extends AppCompatActivity {
     private Button throwButton;
     private int[] white, red, dices;
     private TextView player_str, score_str, nbrOfThrows_str;
+    private Spinner spinner;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +35,10 @@ public class ThirtyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_thirty);
 
         // Spinner stuff
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.number_list, android.R.layout.simple_spinner_item);
+        Resources res = getResources();
+        String[] numbered_list = res.getStringArray(R.array.number_list);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(Arrays.asList(numbered_list)));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -53,8 +59,13 @@ public class ThirtyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String spinnerValue = spinner.getSelectedItem().toString();
                 //Toast.makeText(ThirtyActivity.this, spinnerValue, Toast.LENGTH_SHORT).show();
-                game.calculateScore(spinnerValue);
+                if (!game.calculateScore(spinnerValue)) {
+                    Toast.makeText(ThirtyActivity.this, R.string.wrong_choice, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 score_str.setText(Integer.toString(game.getPlayerScore()));
+                adapter.remove((String) spinner.getSelectedItem());
+                adapter.notifyDataSetChanged();
                 loadNewRound();
             }
         });
@@ -80,7 +91,7 @@ public class ThirtyActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (!gameOn) return;
                     boolean statusOfDie = game.getSavedStatusFromDie(finalI);
-                    if (statusOfDie == true) {
+                    if (statusOfDie) {
                         game.setSavedStatus(finalI, false);
                     } else {
                         game.setSavedStatus(finalI, true);
@@ -99,7 +110,7 @@ public class ThirtyActivity extends AppCompatActivity {
             boolean statusOfDie = game.getSavedStatusFromDie(i);
             ImageView dice = (ImageView) findViewById(dices[i]);
             //Log.d("valueOfDie", String.valueOf(valueOfDie));
-            if (statusOfDie == true) {
+            if (statusOfDie) {
                 dice.setImageResource(red[valueOfDie-1]);
             } else {
                 dice.setImageResource(white[valueOfDie-1]);
@@ -109,6 +120,7 @@ public class ThirtyActivity extends AppCompatActivity {
 
     protected void loadNewRound() {
         game.resetDices();
+        gameOn = false;
         updateDices();
         nbrOfThrows_str.setText("0");
         selectButton.setEnabled(false);

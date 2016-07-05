@@ -8,6 +8,7 @@
     <string name="throws_heading">Throws:</string>
     <string name="player_throws">0</string>
     <string name="select_button">Select</string>
+    <string name="wrong_choice">Something is wrong with your choice, please try again.</string>
 
     <string-array name="number_list">
         <item>Low</item>
