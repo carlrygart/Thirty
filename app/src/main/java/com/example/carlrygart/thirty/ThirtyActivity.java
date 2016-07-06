@@ -142,7 +142,6 @@ public class ThirtyActivity extends AppCompatActivity {
     protected void loadNewRound() {
         game.resetDices();
         gameOn = false;
-        //clickThrowToBegin.setText(R.string.click_throw);
         updateDices();
         nbrOfThrows_str.setText("0");
         selectButton.setEnabled(false);

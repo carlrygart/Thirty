@@ -2,9 +2,6 @@ package com.example.carlrygart.thirty;
 
 import java.util.Random;
 
-/**
- * Created by carlrygart on 03/07/16.
- */
 public class Dice {
     private int value;
     private Random randomGenerator;
