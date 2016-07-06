@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by carlrygart on 03/07/16.
- */
 public class ThirtyGame {
 
     private Dice[] dices;
@@ -86,7 +84,8 @@ public class ThirtyGame {
 //            // ev continue?
 //        }
         //Log.d("tempScore", String.valueOf(tempScore));
-        player.addToScore(spinnerValue, tempScore);
+        player.addToScore(chosenValue, tempScore);
+        Log.d("ScoreAssigned:", String.valueOf(tempScore));
         return true;
     }
 
@@ -101,5 +100,9 @@ public class ThirtyGame {
 
     public String getPlayerName() {
         return player.getName();
+    }
+
+    public Map<Integer, Integer> getPlayerResult() {
+        return player.getResults();
     }
 }

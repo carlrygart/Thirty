@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Thirty</string>
+    <string name="results_title">Results</string>
     <string name="throw_button">Throw</string>
     <string name="player_heading">Player:</string>
     <string name="player_text">NULL</string>
@@ -9,6 +10,22 @@
     <string name="player_throws">0</string>
     <string name="select_button">Select</string>
     <string name="wrong_choice">Something is wrong with your choice, please try again.</string>
+    <string name="type_title">Type</string>
+    <string name="score_title">Score</string>
+    <string name="click_throw">Click throw to begin playing!</string>
+    <string name="total">Total</string>
+    <string name="die">Die</string>
+    <string name="s3">Low</string>
+    <string name="s4">4</string>
+    <string name="s5">5</string>
+    <string name="s6">6</string>
+    <string name="s7">7</string>
+    <string name="s8">8</string>
+    <string name="s9">9</string>
+    <string name="s10">10</string>
+    <string name="s11">11</string>
+    <string name="s12">12</string>
+    <string name="zero">0</string>
 
     <string-array name="number_list">
         <item>Low</item>
