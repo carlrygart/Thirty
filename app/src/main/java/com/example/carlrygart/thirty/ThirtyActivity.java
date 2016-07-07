@@ -30,7 +30,7 @@ public class ThirtyActivity extends AppCompatActivity {
     private TextView player_str, score_str, nbrOfThrows_str, clickThrowToBegin;
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
-    private Button results_button;
+    private Button results_button, newGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,14 @@ public class ThirtyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openResults();
+            }
+        });
+
+        newGameButton = (Button) findViewById(R.id.new_game_button);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ThirtyActivity.this.recreate();
             }
         });
 
@@ -140,6 +148,7 @@ public class ThirtyActivity extends AppCompatActivity {
         throwButton.setEnabled(true);
         if (adapter.isEmpty()) {
             throwButton.setEnabled(false);
+            nbrOfThrows_str.setText(R.string.game_over);
             openResults();
 
         }
@@ -148,7 +157,6 @@ public class ThirtyActivity extends AppCompatActivity {
     protected void openResults() {
         Map<Integer, Integer> playerScores = game.getPlayerResult();
         Intent intent = new Intent(ThirtyActivity.this, Results.class);
-        //intent.putExtra("Low", playerScores.get("Low"));
         for (int key_int = 3; key_int <= 12; key_int++) {
             String key_string = String.valueOf(key_int);
             intent.putExtra(key_string, playerScores.get(key_int));

@@ -8,191 +8,248 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.carlrygart.thirty.ThirtyActivity"
-    android:background="#ffffff"
-    android:clickable="false">
+    android:clickable="false" >
 
-    <TableLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto/"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableLayout"
+                android:layout_alignTop="@+id/linearLayout3"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/player_heading"
+                        android:id="@+id/player_heading" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/player_text"
+                        android:id="@+id/player_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/score_heading"
+                        android:id="@+id/score_heading" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/player_score"
+                        android:id="@+id/player_score" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/throws_heading"
+                        android:id="@+id/throws_heading"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/player_throws"
+                        android:id="@+id/player_throws" />
+
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout3"
+                android:layout_alignParentEnd="true"
+                android:orientation="vertical"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/new_game_button"
+                    android:text="@string/new_game_button" />
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/results_title"
+                    android:id="@+id/results_button" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto/"
+        android:id="@+id/card_view2"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tableLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tableLayout2">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/player_heading"
-                android:id="@+id/player_heading" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/player_text"
-                android:id="@+id/player_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/score_heading"
-                android:id="@+id/score_heading" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/player_score"
-                android:id="@+id/player_score" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/throws_heading"
-                android:id="@+id/throws_heading"
-                android:layout_marginEnd="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/player_throws"
-                android:id="@+id/player_throws" />
-
-        </TableRow>
-    </TableLayout>
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tableLayout2"
-        android:layout_below="@+id/tableLayout"
+        card_view:cardCornerRadius="4dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
+        android:layout_below="@+id/card_view"
+        android:layout_marginTop="10dp">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice0"
-                android:src="@drawable/white1"
-                android:clickable="false"
-                android:layout_column="0"
-                android:contentDescription="@string/die" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice1"
-                android:src="@drawable/white1"
-                android:layout_column="1"
-                android:contentDescription="@string/die" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice2"
-                android:src="@drawable/white1"
-                android:contentDescription="@string/die" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice3"
-                android:src="@drawable/white1"
-                android:contentDescription="@string/die" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice4"
-                android:src="@drawable/white1"
-                android:contentDescription="@string/die" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dice5"
-                android:src="@drawable/white1"
-                android:contentDescription="@string/die" />
-        </TableRow>
-
-    </TableLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout"
-        android:layout_above="@+id/throw_button"
-        android:layout_alignStart="@+id/tableLayout2"
-        android:layout_marginBottom="52dp">
-
-        <Spinner
-            android:layout_width="159dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/spinner"
-            android:spinnerMode="dropdown" />
-
-        <Button
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_button"
-            android:id="@+id/select_button"
-            android:layout_gravity="top" />
+            android:padding="8dp">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tableLayout2"
+                android:focusable="false">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice0"
+                        android:src="@drawable/white1"
+                        android:clickable="false"
+                        android:layout_column="0"
+                        android:contentDescription="@string/die" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice1"
+                        android:src="@drawable/white1"
+                        android:layout_column="1"
+                        android:contentDescription="@string/die" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice2"
+                        android:src="@drawable/white1"
+                        android:layout_column="2"
+                        android:contentDescription="@string/die" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice3"
+                        android:src="@drawable/white1"
+                        android:layout_column="0"
+                        android:contentDescription="@string/die" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice4"
+                        android:src="@drawable/white1"
+                        android:layout_column="1"
+                        android:contentDescription="@string/die" />
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:id="@+id/dice5"
+                        android:src="@drawable/white1"
+                        android:layout_column="2"
+                        android:contentDescription="@string/die" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout"
+                android:layout_gravity="center_horizontal">
+
+                <Spinner
+                    android:layout_width="159dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/spinner"
+                    android:spinnerMode="dropdown" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_button"
+                    android:id="@+id/select_button"
+                    android:layout_gravity="top" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/card_view">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/click_throw"
+            android:id="@+id/click_throw"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:text="@string/throw_button"
+            android:id="@+id/throw_button" />
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/click_throw"
-        android:id="@+id/click_throw"
-        android:layout_above="@+id/throw_button"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/throw_button"
-        android:id="@+id/throw_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/tableLayout2"
-        android:layout_alignStart="@+id/linearLayout" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/results_title"
-        android:id="@+id/results_button"
-        android:layout_alignTop="@+id/tableLayout"
-        android:layout_alignEnd="@+id/tableLayout2" />
 
 </RelativeLayout>

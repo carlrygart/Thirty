@@ -17,7 +17,7 @@ public class ThirtyGame {
 
     public ThirtyGame() {
         resetDices();
-        player = new Player("Carl");
+        player = new Player("DicePlayer1");
     }
 
     public int throwDices() {
@@ -59,31 +59,6 @@ public class ThirtyGame {
         }
         if (chosenValue != 3 && tempScore%chosenValue != 0) return false;
 
-            // Other solution... TBC
-//        LinkedList<Dice> dicesLeft = new LinkedList<>(Arrays.asList(dices));
-//        int chosenValue = 3;
-//        if (spinnerValue.equals("Low")) chosenValue = Integer.parseInt(spinnerValue);
-//        //Log.d("value", String.valueOf(value));
-//
-//        while (!dicesLeft.isEmpty()) {
-//            Dice dice = dicesLeft.poll();
-//            if (dice.getValue() == chosenValue) {
-//                tempScore += chosenValue;
-//                Log.d("First loop", String.valueOf(chosenValue));
-//                // ev continue?
-//            }
-//
-//            for (Dice dice2: dicesLeft) {
-//                if (dice.getValue() + dice2.getValue() == chosenValue) {
-//                    tempScore += chosenValue;
-//                    dicesLeft.remove(dice2);
-//                    Log.d("Second loop", String.valueOf(chosenValue));
-//                    break;
-//                }
-//            }
-//            // ev continue?
-//        }
-        //Log.d("tempScore", String.valueOf(tempScore));
         player.addToScore(chosenValue, tempScore);
         Log.d("ScoreAssigned:", String.valueOf(tempScore));
         return true;

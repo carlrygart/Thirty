@@ -35,9 +35,11 @@ public class Results extends AppCompatActivity {
         for (int i = 3; i <= 12; i++) {
             String key = String.valueOf(i);
             int value = intent.getIntExtra(key, -1);
-            if (value > 0) {
+            if (value >= 0) {
                 vals[i-3].setText(String.valueOf(value));
                 totalScore += value;
+            } else {
+                vals[i-3].setText("");
             }
         }
         total_val.setText(String.valueOf(totalScore));
