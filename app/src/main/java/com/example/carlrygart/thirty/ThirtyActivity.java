@@ -78,15 +78,7 @@ public class ThirtyActivity extends AppCompatActivity {
         results_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<Integer, Integer> playerScores = game.getPlayerResult();
-                Intent intent = new Intent(ThirtyActivity.this, Results.class);
-                //intent.putExtra("Low", playerScores.get("Low"));
-                for (int key_int = 3; key_int <= 12; key_int++) {
-                    String key_string = String.valueOf(key_int);
-                    intent.putExtra(key_string, playerScores.get(key_int));
-                    //Log.d("Int", key_string + " and Val: " + playerScores.get(key_int));
-                }
-                startActivity(intent);
+                openResults();
             }
         });
 
@@ -146,5 +138,22 @@ public class ThirtyActivity extends AppCompatActivity {
         nbrOfThrows_str.setText("0");
         selectButton.setEnabled(false);
         throwButton.setEnabled(true);
+        if (adapter.isEmpty()) {
+            throwButton.setEnabled(false);
+            openResults();
+
+        }
+    }
+
+    protected void openResults() {
+        Map<Integer, Integer> playerScores = game.getPlayerResult();
+        Intent intent = new Intent(ThirtyActivity.this, Results.class);
+        //intent.putExtra("Low", playerScores.get("Low"));
+        for (int key_int = 3; key_int <= 12; key_int++) {
+            String key_string = String.valueOf(key_int);
+            intent.putExtra(key_string, playerScores.get(key_int));
+            //Log.d("Int", key_string + " and Val: " + playerScores.get(key_int));
+        }
+        startActivity(intent);
     }
 }
