@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,72 +15,102 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 public class ThirtyActivity extends AppCompatActivity {
 
     private ThirtyGame game;
-    private boolean gameOn;
-
-    private Button selectButton;
-    private Button throwButton;
+    private Button selectButton, throwButton, resultsButton, newGameButton;
     private int[] white, red, dices;
-    private TextView player_str, score_str, nbrOfThrows_str, clickThrowToBegin;
+    private TextView playerStr, scoreStr, nbrOfThrowsString, statusText;
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
-    private Button results_button, newGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thirty);
 
-        // Spinner stuff
+        // Spinner stuff. Fetching the resources and find the array with choices. Creates the
+        // spinner object and the adapter. Finally putting the adapter in the spinner object.
         Resources res = getResources();
-        String[] numbered_list = res.getStringArray(R.array.number_list);
+        String[] numberedList = res.getStringArray(R.array.number_list);
         spinner = (Spinner) findViewById(R.id.spinner);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(Arrays.asList(numbered_list)));
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>(Arrays.asList(numberedList)));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        // Initiates the game model.
         game = new ThirtyGame();
 
+        // Fetching the needed the dice images and getting IDs for the ImageViews.
         white = new int[] {R.drawable.white1, R.drawable.white2, R.drawable.white3, R.drawable.white4, R.drawable.white5, R.drawable.white6};
         red = new int[] {R.drawable.red1, R.drawable.red2, R.drawable.red3, R.drawable.red4, R.drawable.red5, R.drawable.red6};
         dices = new int[] {R.id.dice0, R.id.dice1, R.id.dice2, R.id.dice3, R.id.dice4, R.id.dice5};
 
-        player_str = (TextView) findViewById(R.id.player_text);
-        player_str.setText(game.getPlayerName());
-        score_str = (TextView) findViewById(R.id.player_score);
-        nbrOfThrows_str = (TextView) findViewById(R.id.player_throws);
-        clickThrowToBegin = (TextView) findViewById(R.id.click_throw);
+        // Fetching all the Textviews.
+        playerStr = (TextView) findViewById(R.id.player_text);
+        playerStr.setText(game.getPlayerName());
+        scoreStr = (TextView) findViewById(R.id.player_score);
+        nbrOfThrowsString = (TextView) findViewById(R.id.player_throws);
+        statusText = (TextView) findViewById(R.id.status_text);
 
+        // Finds all the dices and creates the click listeners for them.
+        for (int i = 0; i < 6; i++) {
+            ImageView dieImg = (ImageView) findViewById(dices[i]);
+            final int finalI = i;
+            dieImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // A dice should not be clickable if game is not on.
+                    if (!game.isGameOn()) return;
+
+                    // Change status of dice in the game object.
+                    boolean statusOfDie = game.getSavedStatusFromDie(finalI);
+                    if (statusOfDie) {
+                        game.setSavedStatus(finalI, false);
+                    } else {
+                        game.setSavedStatus(finalI, true);
+                    }
+
+                    updateDices();
+                    Log.d("PressedDieValue", String.valueOf(game.getValueFromDie(finalI)));
+                }
+            });
+        }
+
+        // Finds the select button and creates the click listener.
         selectButton = (Button) findViewById(R.id.select_button);
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String spinnerValue = spinner.getSelectedItem().toString();
-                //Toast.makeText(ThirtyActivity.this, spinnerValue, Toast.LENGTH_SHORT).show();
+                // If the player have chosen dices that are invalid for the chosen value
+                // it will show the message.
                 if (!game.calculateScore(spinnerValue)) {
                     Toast.makeText(ThirtyActivity.this, R.string.wrong_choice, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                score_str.setText(Integer.toString(game.getPlayerScore()));
+                // Print out score and remove the chosen value from the adapter (and therefore
+                // also the spinner).
+                scoreStr.setText(Integer.toString(game.getPlayerScore()));
                 adapter.remove((String) spinner.getSelectedItem());
                 adapter.notifyDataSetChanged();
                 loadNewRound();
             }
         });
 
-        results_button = (Button) findViewById(R.id.results_button);
-        results_button.setOnClickListener(new View.OnClickListener() {
+        // Finds the results button and creates the click listener.
+        resultsButton = (Button) findViewById(R.id.results_button);
+        resultsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openResults();
             }
         });
 
+        // Finds the new game button and creates the click listener. For simplicity the activity is
+        // just recreated.
         newGameButton = (Button) findViewById(R.id.new_game_button);
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,47 +119,34 @@ public class ThirtyActivity extends AppCompatActivity {
             }
         });
 
+        // Finds the new throw button and creates the click listener.
         throwButton = (Button) findViewById(R.id.throw_button);
         throwButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameOn = true;
-                clickThrowToBegin.setText("");
+                // Change the status for the game.
+                game.setGameState(true);
+                statusText.setText("");
+                // Tell the game to throw the dices. and then update the images.
                 int nbrOfThrows = game.throwDices();
                 updateDices();
-                nbrOfThrows_str.setText(Integer.toString(nbrOfThrows));
+                // Print the number of used throws for this round and disable the throw button
+                // if the player already has used his throws.
+                nbrOfThrowsString.setText(Integer.toString(nbrOfThrows));
                 if (nbrOfThrows >= 3) throwButton.setEnabled(false);
                 selectButton.setEnabled(true);
             }
         });
 
-        for (int i = 0; i < 6; i++) {
-            ImageView dieImg = (ImageView) findViewById(dices[i]);
-            final int finalI = i;
-            dieImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!gameOn) return;
-                    boolean statusOfDie = game.getSavedStatusFromDie(finalI);
-                    if (statusOfDie) {
-                        game.setSavedStatus(finalI, false);
-                    } else {
-                        game.setSavedStatus(finalI, true);
-                    }
-                    updateDices();
-                    Log.d("PressedDieValue", String.valueOf(game.getValueFromDie(finalI)));
-                }
-            });
-        }
         loadNewRound();
     }
 
+    // Updates all the dice images according to their status.
     protected void updateDices() {
         for (int i = 0; i < 6; i++) {
             int valueOfDie = game.getValueFromDie(i);
             boolean statusOfDie = game.getSavedStatusFromDie(i);
             ImageView dice = (ImageView) findViewById(dices[i]);
-            //Log.d("valueOfDie", String.valueOf(valueOfDie));
             if (statusOfDie) {
                 dice.setImageResource(red[valueOfDie-1]);
             } else {
@@ -139,21 +155,24 @@ public class ThirtyActivity extends AppCompatActivity {
         }
     }
 
+    // Resetting all the dices values to one and updates the images, buttons and textviews.
     protected void loadNewRound() {
         game.resetDices();
-        gameOn = false;
+        game.setGameState(false);
         updateDices();
-        nbrOfThrows_str.setText("0");
+        nbrOfThrowsString.setText("0");
         selectButton.setEnabled(false);
         throwButton.setEnabled(true);
         if (adapter.isEmpty()) {
             throwButton.setEnabled(false);
-            nbrOfThrows_str.setText(R.string.game_over);
+            statusText.setText(R.string.game_over);
             openResults();
 
         }
     }
 
+    // Fetching all the score results from the game object, putting the information in the intent
+    // for the activity and finally starting the activity.
     protected void openResults() {
         Map<Integer, Integer> playerScores = game.getPlayerResult();
         Intent intent = new Intent(ThirtyActivity.this, Results.class);

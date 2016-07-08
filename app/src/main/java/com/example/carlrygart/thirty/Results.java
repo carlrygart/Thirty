@@ -5,8 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
+// Activity for the game Thirty. Is called from the ThirtyActivity.
 public class Results extends AppCompatActivity {
 
     TextView s3_val, s4_val, s5_val, s6_val, s7_val, s8_val, s9_val, s10_val, s11_val, s12_val, total_val;
@@ -30,6 +29,8 @@ public class Results extends AppCompatActivity {
             s12_val = (TextView) findViewById(R.id.s12_val),
             total_val = (TextView) findViewById(R.id.total_val)};
 
+        // Get the intent. Iterate through all extra parameters and put the values in the right
+        // TextView. The choice Low is mapped as number 3.
         Intent intent = getIntent();
         int totalScore = 0;
         for (int i = 3; i <= 12; i++) {

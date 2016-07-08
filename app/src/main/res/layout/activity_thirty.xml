@@ -67,7 +67,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/player_score"
+                        android:text="@string/zero"
                         android:id="@+id/player_score" />
 
                 </TableRow>
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/player_throws"
+                        android:text="@string/zero"
                         android:id="@+id/player_throws" />
 
                 </TableRow>
@@ -209,7 +209,7 @@
                 android:layout_gravity="center_horizontal">
 
                 <Spinner
-                    android:layout_width="159dp"
+                    android:layout_width="120dp"
                     android:layout_height="fill_parent"
                     android:id="@+id/spinner"
                     android:spinnerMode="dropdown" />
@@ -239,7 +239,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/click_throw"
-            android:id="@+id/click_throw"
+            android:id="@+id/status_text"
             android:layout_gravity="center_horizontal" />
 
         <Button
